@@ -542,23 +542,8 @@ function updateAllSections() {
 function init() {
     // Search button click handler (instead of real-time input)
     const searchButton = document.getElementById('searchButton');
-    searchButton.addEventListener('click', () => {
-        updateAllSections();
-        // Scroll to resources section after search
-        const resourcesSection = document.getElementById('resources');
-        if (resourcesSection) {
-            setTimeout(() => {
-                resourcesSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }, 100);
-        }
-    });
-
-    // Allow Enter key in search input
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
+    if (searchButton) {
+        searchButton.addEventListener('click', () => {
             updateAllSections();
             // Scroll to resources section after search
             const resourcesSection = document.getElementById('resources');
@@ -570,8 +555,31 @@ function init() {
                     });
                 }, 100);
             }
-        }
-    });
+        });
+    } else {
+        console.error('Search button not found!');
+    }
+
+    // Allow Enter key in search input
+    if (searchInput) {
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                updateAllSections();
+                // Scroll to resources section after search
+                const resourcesSection = document.getElementById('resources');
+                if (resourcesSection) {
+                    setTimeout(() => {
+                        resourcesSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 100);
+                }
+            }
+        });
+    } else {
+        console.error('Search input not found!');
+    }
 
     // Filter panel toggle
     const filtersToggle = document.getElementById('filtersToggle');
